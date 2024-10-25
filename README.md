@@ -1,0 +1,2 @@
+# textual-reaction-time
+ A reaction time app built on the Textual framework for Prof. Trent Wirth's PSYC 3010 Programming for Behavioral Scientists course. The purpose of the app is to construct a dual-choice reaction time task where participants (students) will react to X's and O's by pressing different keys. Their reaction time to the different letters, as well as their accuracy, will be saved locally to their machine in either a `.csv` or a `.txt` file. 
