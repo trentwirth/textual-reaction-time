@@ -1,7 +1,5 @@
-# reactiontimeapp/ui.py
-
+import logging
 import time
-
 from textual.widget import Widget
 from textual.reactive import Reactive
 from textual.widgets import Button
@@ -19,10 +17,12 @@ class ReactionTimeUI(Widget):
 
     async def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "start_button":
+            logging.debug("Start button pressed")
             self.message = "Get ready..."
             await self.experiment.run_trials(self)
 
     async def on_key(self, event: Key) -> None:
+        logging.debug(f"Key pressed: {event.key}")
         if self.awaiting_keypress and event.key == "z":
             reaction_time = time.time() - self.experiment.start_time
             self.experiment.record_reaction_time(reaction_time)

@@ -1,7 +1,9 @@
-# reactiontimeapp/main.py
-
 import sys
 from pathlib import Path
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Add the parent directory to sys.path
 sys.path.append(str(Path(__file__).resolve().parent.parent))

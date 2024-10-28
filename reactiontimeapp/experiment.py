@@ -1,8 +1,8 @@
-# reactiontimeapp/experiment.py
-
 import time
 import random
 import csv
+import asyncio
+import logging
 from asyncio import get_running_loop
 from textual.widget import Widget
 from textual.reactive import Reactive
@@ -27,17 +27,19 @@ class ReactionTimeExperiment:
     async def run_trials(self, ui):
         for trial in range(self.trial_number):
             self.current_trial = trial + 1
+            logging.debug(f"Starting trial {self.current_trial}")
             await sleep(random.uniform(1, 10))
             ui.message = "Press 'z' now!"
             self.start_time = time.time()
             ui.awaiting_keypress = True
             while ui.awaiting_keypress:
-                await sleep(0.1)
+                await asyncio.sleep(0.1)  # Use asyncio.sleep for short intervals
 
         ui.message = "Experiment is over"
         self.print_results()
 
     def record_reaction_time(self, reaction_time):
+        logging.debug(f"Reaction time recorded: {reaction_time}")
         self.trials.append((self.current_trial, reaction_time))
 
     def print_results(self):
@@ -48,4 +50,4 @@ class ReactionTimeExperiment:
                 writer.writerow(trial)
         
         with open("reaction_times.csv", "r") as csvfile:
-            print(csvfile.read())
+            logging.debug(csvfile.read())
